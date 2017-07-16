@@ -1,0 +1,81 @@
+CREATE DATABASE IF NOT EXISTS ad;
+USE ad;
+
+CREATE TABLE Seller (
+	UserID VARCHAR(80) NOT NULL,
+    Rating INTEGER NOT NULL,
+
+    PRIMARY KEY (UserID)
+);
+
+CREATE TABLE Item (
+    ItemID INTEGER NOT NULL,
+    Name VARCHAR(80) NOT NULL,
+    Currently DECIMAL(8, 2) NOT NULL,
+    First_Bid DECIMAL(8, 2) NOT NULL,
+    Number_of_Bids INTEGER NOT NULL,
+    Location VARCHAR(80) NOT NULL,
+    Country VARCHAR(80) NOT NULL,
+    Started TIMESTAMP NOT NULL,
+    Ends TIMESTAMP NOT NULL,
+    Seller VARCHAR(80) NOT NULL,
+    Description VARCHAR(4000) NOT NULL,
+
+    PRIMARY KEY (ItemID),
+    FOREIGN KEY (Seller) REFERENCES Seller(UserID)
+);
+
+CREATE TABLE Bidder (
+    UserID VARCHAR(80) NOT NULL,
+    Rating INTEGER NOT NULL,
+
+    PRIMARY KEY (UserID)
+);
+
+CREATE TABLE Bids (
+    ItemID INTEGER NOT NULL,
+    UserID VARCHAR(80) NOT NULL,
+    Time TIMESTAMP NOT NULL,
+    Amount DECIMAL(8, 2) NOT NULL,
+
+    PRIMARY KEY (ItemID, UserID, Time)
+);
+
+CREATE TABLE ItemCategory (
+    ItemID INTEGER NOT NULL,
+    Category VARCHAR(80) NOT NULL,
+
+    PRIMARY KEY (ItemID, Category)
+);
+
+CREATE TABLE ItemLocation ( 
+    ItemID INTEGER NOT NULL,
+    Latitude DECIMAL(9, 6) NOT NULL,
+    Longitude DECIMAL(9, 6) NOT NULL,
+
+	PRIMARY KEY (ItemID)
+);
+
+CREATE TABLE Buy_Price (
+	ItemID INTEGER NOT NULL,
+	Buy_Price DECIMAL(8, 2) NOT NULL,
+
+	PRIMARY KEY (ItemID)
+);
+
+CREATE TABLE BidderLocation(
+	UserID VARCHAR(80) NOT NULL,
+	Location VARCHAR(80) NOT NULL,
+
+	PRIMARY KEY (UserID)
+);
+
+CREATE TABLE BidderCountry(
+	UserID VARCHAR(80) NOT NULL,
+    Country VARCHAR(80) NOT NULL,
+
+	PRIMARY KEY (UserID)
+)
+
+
+ 
